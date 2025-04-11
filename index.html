@@ -82,7 +82,15 @@
         padding: 5px 10px;
         cursor: pointer;
     }
-    
+    #task-List li[data-priority="high"]{
+        background-color: red;
+    }
+    #task-List li[data-priority="medium"]{
+        background-color: yellow;
+    }
+    #task-List li[data-priority="low"]{
+        background-color: green;
+    }
     
 </style>
 </head>
@@ -91,6 +99,12 @@
         <h1>To-do-List</h1>
         <form id="task-form">
             <input type="text" id="task-input" placeholder="Enter a new task" required></body>
+            <label for="dropdown">
+            <select id="priority-select" name="priority">
+                <option value="high">🔴High</option>
+                <option value="medium">🟡Medium</option>
+                <option value="low">🟢Low</option>
+            </select>
             <button type="submit">Add Task</button>
         </form>
         <ul id="task-list"></ul>
@@ -100,14 +114,16 @@
         document.addEventListener("DOMContentLoaded", () => {
             const taskForm = document.getElementById("task-form");
             const taskInput = document.getElementById("task-input");
+            const prioritySelect = document.getElementById("priority-select");
             const taskList = document.getElementById("task-list");
     
             taskForm.addEventListener("submit", (e) => {
                 e.preventDefault();
                 const taskText = taskInput.value.trim();
-                if (taskText === "") return;
-    
+                const priority = prioritySelect.value;
+                
                 const taskItem = document.createElement("li");
+                taskItem.setAttribute("data-priority", priority);
     
                 // Create a checkbox
                 const checkbox = document.createElement("input");
@@ -132,6 +148,7 @@
                 taskInput.value = "";
             });
         });
+        
     </script>
     </html>
     
